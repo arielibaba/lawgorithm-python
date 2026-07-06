@@ -15,6 +15,8 @@ Usage:
     dossier = client.export_dossier(system_id="uuid", format="markdown")
 """
 
+import logging
+
 from lawgorithm.client import LawgorithmClient
 from lawgorithm.exceptions import (
     LawgorithmError,
@@ -32,6 +34,12 @@ from lawgorithm.models import (
     Attestation,
     DossierExport,
 )
+
+# Library logging best practice: attach a NullHandler to the package's root
+# logger so importing the SDK never emits a "last resort" message to stderr.
+# The host application is responsible for configuring handlers/levels.
+# Individual modules use logging.getLogger(__name__).
+logging.getLogger("lawgorithm").addHandler(logging.NullHandler())
 
 __version__ = "0.1.0"
 
